@@ -5,13 +5,13 @@ class Fixnum
   #   Return true is count does NOT equal zero
   # @example
   #   host.event_count.blank? #=> false
-  def blank?
-    if (self.zero?)
-      return true
-    else
-      return false
-    end
-  end
+  #def blank?
+  #  if (self.zero?)
+  #    return true
+  #  else
+  #    return false
+  #  end
+  #end
 
   # Return a severity integer in words.
   # @return [String]
