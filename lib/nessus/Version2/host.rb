@@ -150,6 +150,33 @@ module Nessus
       alias operating_system os_name
 
       #
+      # Return the host cpe.
+      #
+      # @return [Array, false]
+      #    Return the event cpe.
+      #
+      def cpes
+        unless @cpes
+          @cpes = []
+          
+          @host.xpath('//HostProperties/tag[contains(@name, "cpe")]').each do |cpe|
+            @cpes << cpe.inner_text
+          end unless cpe.nil?
+        end
+        @cpes
+      end
+      
+      #
+      # Return the host credentialed scan setting.
+      # @return String
+      #
+      def credentialed_scan
+        if (credentialed_scan = @host.at('tag[name=Credentialed_Scan]'))
+          credentialed_scan.inner_text
+        end
+      end
+
+      #
       # Return the open ports for a given host object.
       #
       # @return [Integer]
@@ -382,7 +409,8 @@ module Nessus
         end
         @ports
       end
-
+    
+      
       #
       # Return the TCP Event Count.
       #
