@@ -158,10 +158,11 @@ module Nessus
       def cpes
         unless @cpes
           @cpes = []
-          
-          @host.xpath('//HostProperties/tag[contains(@name, "cpe")]').each do |cpe|
-            @cpes << cpe.inner_text
-          end unless cpe.nil?
+          unless @host.xpath('//HostProperties/tag[contains(@name, "cpe")]').count == 0
+            @host.xpath('//HostProperties/tag[contains(@name, "cpe")]').each do |cp|
+              @cpes << cpe.inner_text
+            end
+          end
         end
         @cpes
       end
