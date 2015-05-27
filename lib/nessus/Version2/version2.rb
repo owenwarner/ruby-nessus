@@ -236,6 +236,19 @@ module Nessus
       def low_severity_count
         count_stats[:low].to_i
       end
+      
+      #
+      # Return the Critical severity count.
+      #
+      # @return [Integer]
+      #   The Critical Severity Count
+      #
+      # @example
+      #   scan.critical_severity_count #=> 4
+      #
+      def critical_severity_count
+        count_stats[:critical].to_i
+      end
 
       #
       # Return the Total severity count. [high, medium, low, informational]
@@ -319,7 +332,7 @@ module Nessus
         def count_stats
           unless @count
             @count = {}
-            @open_ports, @tcp, @udp, @icmp, @informational, @low, @medium, @high = 0,0,0,0,0,0,0,0
+            @open_ports, @tcp, @udp, @icmp, @informational, @low, @medium, @high, @critical = 0,0,0,0,0,0,0,0,0
 
             @xml.xpath("//ReportItem").each do |s|
               case s['severity'].to_i
@@ -331,6 +344,8 @@ module Nessus
                   @medium += 1
                 when 3
                   @high += 1
+                when 4
+                  @critical += 1
               end
               
               unless s['severity'].to_i == 0
@@ -350,6 +365,7 @@ module Nessus
                       :low => @low,
                       :medium => @medium,
                       :high => @high,
+                      :critical => @critical,
                       :all => (@low + @medium + @high)}
           end
 
