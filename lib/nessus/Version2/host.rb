@@ -14,7 +14,7 @@ module Nessus
       #
       def initialize(host)
         @host = host
-      end
+      endc
 
       def to_s
         "#{ip}"
@@ -158,8 +158,8 @@ module Nessus
       def cpes
         unless @cpes
           @cpes = []
-          unless @host.xpath('//HostProperties/tag[contains(@name, "cpe")]').count == 0
-            @host.xpath('//HostProperties/tag[contains(@name, "cpe")]').each do |cpe|
+          unless @host.xpath('.//tag[contains(@name, "cpe")]').count == 0
+            @host.xpath('.//tag[contains(@name, "cpe")]').each do |cpe|
               @cpes << cpe.inner_text
             end
           end
