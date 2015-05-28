@@ -14,7 +14,7 @@ module Nessus
       #
       def initialize(host)
         @host = host
-      endc
+      end
 
       def to_s
         "#{ip}"
